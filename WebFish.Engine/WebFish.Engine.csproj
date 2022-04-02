@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Engine\stockfish_14_x64_avx2.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Engine\stockfish_14_x64_avx2.exe">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <Resource Include="Engine\stockfish_14_x64_avx2.exe" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\WebFish.Common\WebFish.Common.csproj" />
+  </ItemGroup>
+
+</Project>

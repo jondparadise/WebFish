@@ -1,0 +1,50 @@
+﻿@using WebFish.API.Views
+@model GameViewViewModel
+
+<html>
+<head>
+    <link rel="stylesheet" href="styles/game.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<input type="hidden" value="@Model.ID" id="gameId" />    
+<header>
+        <span id="tagline">WebFish</span>
+        <div id="authContainer">
+            <a href="register" class="authBtn">Register</a>
+            <a href="login" class="authBtn">Login</a>
+        </div>
+    </header>
+    <main>
+        <div id="gameContainer">
+            <div id="board">
+                <div v-for="row in board.squares" class="boardRow">
+                    <div v-for="cell in row" :class="['boardCell', { dark: cell.isDark() }, { eligibleMove: cell.isEligibleMove() }]" 
+                    :data-label="cell.getLabel()" :data-x="cell.X" :data-y="cell.Y">
+                        <i :class="['piece', cell.pieceClassName(), { black: cell.isOccupiedByBlack() }, { selected: cell.isSelected() }]"
+                            :data-x="cell.X" :data-y="cell.Y"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="moveListContainer">
+                <div style="flex: 1; background: #333; overflow-y: scroll;">
+                    <div class="moveListRow" v-for="move in moveList.Moves">
+                        <span>{{move.date.toLocaleTimeString('en-US')}}</span>
+                        <i :class="move.pieceClassName"></i>
+                        <span>{{move.FEN}}</span>
+                    </div>
+                </div>
+                <div id="scorecard"><span id="statusMessage">{{statusMessage}}</span></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Copyright &copy; 2021 - <a href="#" style="text-decoration: none; font-style: italic; color: #666;">webfish.io</a>
+    </footer>
+    <script src="scripts/serviceclient.js"></script>
+    <script src="scripts/chess.js"></script>
+</body>
+</html>
+
